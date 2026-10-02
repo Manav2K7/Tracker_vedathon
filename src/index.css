@@ -1,0 +1,453 @@
+/* ============================================================
+   Vedathon2.0 Leaderboard — Global Styles
+   ============================================================ */
+
+:root {
+  --blood-red: #b91c1c;
+  --blood-red-dark: #7f1d1d;
+  --pumpkin-orange: #f97316;
+  --pumpkin-dark: #c2410c;
+  --bone-white: #f5f5f4;
+  --eerie-green: #84cc16;
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow-glow: 0 0 20px rgba(185, 28, 28, 0.55), 0 0 60px rgba(185, 28, 28, 0.25);
+  --shadow-glow-sm: 0 0 10px rgba(249, 115, 22, 0.45), 0 0 30px rgba(249, 115, 22, 0.18);
+  --shadow-glow-green: 0 0 14px rgba(132, 204, 22, 0.5), 0 0 34px rgba(132, 204, 22, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Nunito', 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--bone-white);
+  background: var(--blood-red-dark);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Fallback fonts for Google Fonts */
+@font-face {
+  font-family: 'Creepster';
+  src: url(https://fonts.gstatic.com/s/creepster/v21/0K0Qw8f9RY034k_1j3TxPw.woff2)
+    format('woff2');
+}
+
+/* ---- Background: fixed full-screen cover ---- */
+#app-root {
+  position: relative;
+  min-height: 100vh;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  background: url('/HOME_BG.png') center / cover no-repeat;
+  background-attachment: fixed;
+  z-index: 0;
+}
+
+/* Dark semi-transparent overlay so text is readable */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 8, 10, 0.55);
+  z-index: 0;
+}
+
+/* ---- Content wrapper ---- */
+.content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: var(--shadow-glow);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(185, 28, 28, 0.8), 0 0 80px rgba(185, 28, 28, 0.35);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes fogFlow {
+  0% {
+    transform: translateX(-8%);
+  }
+  100% {
+    transform: translateX(8%);
+  }
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0.75;
+  }
+  10% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.6;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.8;
+  }
+}
+
+/* ============================================================
+   Floating bats (pure CSS)
+   ============================================================ */
+.bats {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bat {
+  position: absolute;
+  width: 34px;
+  height: 20px;
+  background: transparent;
+  border-radius: 0 6px 6px 0;
+  color: #f5d9d5;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: float 5s ease-in-out infinite alternate;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+}
+
+.bat-1 { top: 12%; left: 8%; animation-delay: 0s; }
+.bat-2 { top: 45%; left: 70%; animation-delay: 1.2s; }
+.bat-3 { top: 80%; left: 40%; animation-delay: 2.4s; }
+.bat-4 { top: 30%; left: 90%; animation-delay: 0.7s; }
+.bat-5 { top: 60%; left: 15%; animation-delay: 3.1s; width: 26px; height: 16px; }
+
+.bat::before,
+.bat::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+}
+
+.bat::before {
+  width: 10px;
+  height: 12px;
+  top: 2px;
+  left: -10px;
+  border-radius: 2px;
+  transform: rotate(25deg);
+}
+
+.bat::after {
+  width: 10px;
+  height: 12px;
+  top: 2px;
+  right: -10px;
+  border-radius: 2px;
+  transform: rotate(-25deg);
+}
+
+/* ============================================================
+   Fog layer
+   ============================================================ */
+.fog {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+      60% 40% at 50% 50%,
+      rgba(44, 20, 24, 0.55) 0%,
+      rgba(13, 6, 8, 0.3) 60%,
+      transparent 100%
+  );
+  animation: fogFlow 18s ease-in-out infinite alternate;
+}
+
+/* ============================================================
+   Glassmorphism card
+   ============================================================ */
+.glass {
+  background: rgba(24, 10, 14, 0.72);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-glow {
+  border-color: rgba(249, 115, 22, 0.55);
+  box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================================
+   Titles
+   ============================================================ */
+.title {
+  font-family: 'Creepster', 'Comic Sans MS', cursive;
+  font-size: clamp(2.8rem, 8vw, 5.2rem);
+  color: var(--bone-white);
+  text-shadow: 0 0 20px rgba(185, 28, 28, 0.6), 0 0 60px rgba(185, 28, 28, 0.3);
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.title-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* ============================================================
+   Footer admin link
+   ============================================================ */
+.footer {
+  margin-top: auto;
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(245, 245, 244, 0.6);
+}
+
+.footer a {
+  color: var(--pumpkin-orange);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(249, 115, 22, 0.4);
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: #fff;
+  border-bottom-color: var(--pumpkin-orange);
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  font-family: inherit;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.15s;
+  padding: 10px 18px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--blood-red);
+  color: var(--bone-white);
+  box-shadow: 0 4px 14px rgba(185, 28, 28, 0.4);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-pumpkin {
+  background: var(--pumpkin-orange);
+  color: var(--bone-white);
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+}
+
+.btn-pumpkin:hover {
+  filter: brightness(1.1);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--bone-white);
+  border: 1px solid rgba(249, 115, 22, 0.4);
+}
+
+.btn-ghost:hover {
+  background: rgba(249, 115, 22, 0.15);
+}
+
+.btn-danger {
+  background: transparent;
+  color: #fca5a5;
+  border: 1px solid rgba(249, 115, 22, 0.4);
+}
+
+.btn-danger:hover {
+  background: rgba(185, 28, 28, 0.2);
+}
+
+/* ============================================================
+   Forms
+   ============================================================ */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.9rem;
+  color: rgba(245, 245, 244, 0.85);
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--bone-white);
+  background: rgba(24, 10, 14, 0.75);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(4px);
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--pumpkin-orange);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+}
+
+.form-input::placeholder {
+  color: rgba(245, 245, 244, 0.4);
+}
+
+/* ============================================================
+   Errors
+   ============================================================ */
+.error-msg {
+  color: #fca5a5;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 8px 0;
+}
+
+/* ============================================================
+   Leaderboard rows
+   ============================================================ */
+.student-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  transition: background 0.2s, box-shadow 0.2s;
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.student-row:hover {
+  background: rgba(249, 115, 22, 0.1);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.rank-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.rank-number {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--pumpkin-orange);
+  font-family: 'Creepster', cursive;
+}
+
+.student-name {
+  font-weight: 700;
+  flex: 1;
+  font-size: 1.1rem;
+}
+
+.reg-count {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--blood-red);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 640px) {
+  .student-row {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 14px;
+  }
+
+  .student-name {
+    width: 100%;
+    order: 3;
+  }
+
+  .reg-count {
+    order: 1;
+  }
+
+  .rank-icon,
+  .rank-number {
+    order: 2;
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .footer {
+    padding: 16px 16px;
+  }
+}
