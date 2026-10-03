@@ -171,9 +171,8 @@ export default function Admin() {
       <div className="content">
         <div className="bg-layer" />
         <div className="overlay" />
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
-          <div className="title">Vedathon2.0 Leaderboard</div>
-          <div style={{ color: 'rgba(245,245,244,0.6)', fontSize: '1.1rem' }}>Loading the scribe's ledger...</div>
+        <div className="home-container" style={{ justifyContent: 'center' }}>
+          <div className="event-title" style={{ fontSize: '2rem' }}>Loading the scribe's ledger...</div>
         </div>
       </div>
     );
@@ -194,36 +193,24 @@ export default function Admin() {
           overflow: 'hidden',
         }}
       >
-        <div className="bat" style={{ top: '12%', left: '8%', animationDelay: '0s' }}>🦇</div>
-        <div className="bat" style={{ top: '45%', left: '70%', animationDelay: '1.2s' }}>🦇</div>
-        <div className="bat" style={{ top: '80%', left: '40%', animationDelay: '2.4s' }}>🦇</div>
-        <div className="bat" style={{ top: '30%', left: '90%', animationDelay: '0.7s' }}>🦇</div>
-        <div className="bat" style={{ top: '60%', left: '15%', animationDelay: '3.1s', width: '26px', height: '16px' }}>🦇</div>
+        <div className="bat bat-1"></div>
+        <div className="bat bat-2"></div>
+        <div className="bat bat-3"></div>
+        <div className="bat bat-4"></div>
+        <div className="bat bat-5"></div>
       </div>
       <div className="fog" aria-hidden="true" />
 
       {step === 'login' ? (
-        <div
-          style={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '40px 20px',
-            gap: '24px',
-          }}
-        >
-          <div className="title" style={{ textShadow: '0 0 24px rgba(185,28,28,0.7)' }}>
-            Vedathon2.0 Graveyard
-          </div>
+        <div className="home-container" style={{ justifyContent: 'center' }}>
+          <div className="event-title">Vedathon 2.0<br/>Graveyard</div>
           <form
-            className="glass"
-            style={{ width: '100%', maxWidth: '400px', padding: '32px' }}
+            className="leaderboard-panel"
+            style={{ width: '100%', maxWidth: '400px', padding: '32px', textAlign: 'center' }}
             onSubmit={handleLogin}
           >
-            <h2 style={{ fontSize: '1.6rem', margin: '0 0 8px' }}>Enter the graveyard</h2>
-            <p style={{ color: 'rgba(245,245,244,0.7)', margin: '0 0 16px', fontSize: '0.95rem' }}>
+            <h2 style={{ fontSize: '1.6rem', margin: '0 0 8px', fontFamily: "'Manrope', sans-serif" }}>Enter the graveyard</h2>
+            <p style={{ color: 'var(--muted-text)', margin: '0 0 24px', fontSize: '0.95rem' }}>
               Gain entry with the admin spell.
             </p>
 
@@ -267,11 +254,11 @@ export default function Admin() {
           </form>
         </div>
       ) : (
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px', padding: '32px 20px 60px', maxWidth: '1200px', width: '100%', margin: '0 auto' }}>
+        <div className="home-container">
           {/* Header */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-            <div className="title" style={{ textShadow: '0 0 24px rgba(185,28,28,0.7)' }}>
-              Admin — Vedathon2.0 Ledger
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', width: '100%', maxWidth: '1050px', marginBottom: '24px' }}>
+            <div className="event-title" style={{ margin: 0, fontSize: '2rem' }}>
+              Admin — Ledger
             </div>
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
               <button type="button" className="btn btn-ghost" onClick={handleLogout}>
@@ -297,8 +284,8 @@ export default function Admin() {
           )}
 
           <div
-            className="glass glass-glow"
-            style={{ padding: '24px', borderWidth: '2px' }}
+            className="leaderboard-panel"
+            style={{ padding: '24px', borderWidth: '1px' }}
           >
             {/* Add student */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: '10px', marginBottom: '16px' }}>
@@ -369,8 +356,9 @@ export default function Admin() {
                       }}
                     >
                       <td style={{ padding: '12px 14px' }}>
-                        {idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`}
-                      </td>                       <td style={{ padding: '12px 14px', fontWeight: 600, color: 'var(--bone-white)' }}>
+                        {idx === 0 ? <><span className="rank-indicator gold"></span> 01</> : idx === 1 ? <><span className="rank-indicator silver"></span> 02</> : idx === 2 ? <><span className="rank-indicator bronze"></span> 03</> : String(idx + 1).padStart(2, '0')}
+                      </td>
+                      <td style={{ padding: '12px 14px', fontWeight: 600, color: 'var(--bone-white)' }}>
                         {editingId === student.id ? (
                           <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
                             <input
