@@ -1,20 +1,32 @@
 import PropTypes from 'prop-types';
 
-/**
- * Single leaderboard row.
- */
-export default function StudentRow({ student, rank, onRename, onDelete }) {
-  const rankLabel =
-    rank === 0 ? '🥇' : rank === 1 ? '🥈' : rank === 2 ? '🥉' : `#${rank + 1}`;
+export default function StudentRow({ student, rank, onRename, onDelete, isAdmin }) {
+  const isTop1 = rank === 0;
+  const isTop2 = rank === 1;
+  const isTop3 = rank === 2;
+  
+  const rankClass = isTop1 ? 'top-1' : isTop2 ? 'top-2' : isTop3 ? 'top-3' : '';
+  
+  let rankContent;
+  if (isTop1) {
+    rankContent = <><span className="rank-indicator gold"></span> 01</>;
+  } else if (isTop2) {
+    rankContent = <><span className="rank-indicator silver"></span> 02</>;
+  } else if (isTop3) {
+    rankContent = <><span className="rank-indicator bronze"></span> 03</>;
+  } else {
+    rankContent = String(rank + 1).padStart(2, '0');
+  }
 
   return (
-    <div className="student-row">
-      <div className="rank-icon">{rankLabel}</div>
-      <div className="rank-number">{rank + 1}</div>
+    <div className={`student-row ${rankClass} ${isAdmin ? 'admin' : ''}`}>
+      <div className={`rank-display ${rankClass}`}>
+        {rankContent}
+      </div>
       <div className="student-name">{student.name}</div>
       <div className="reg-count">{student.registrations}</div>
-      {(onRename || onDelete) && (
-        <div className="row-actions" style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+      {isAdmin && (
+        <div className="row-actions">
           {onRename && (
             <button
               type="button"
@@ -50,4 +62,5 @@ StudentRow.propTypes = {
   rank: PropTypes.number.isRequired,
   onRename: PropTypes.func,
   onDelete: PropTypes.func,
+  isAdmin: PropTypes.bool,
 };
