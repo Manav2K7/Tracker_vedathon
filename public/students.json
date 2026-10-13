@@ -1,13 +1,15 @@
 [
   { "id": "darshank", "name": "darshank", "registrations": 27 },
-  { "id": "charika", "name": "Charika", "registrations": 72},
+  { "id": "charika", "name": "Charika", "registrations": 77},
   { "id": "Disha", "name": "Disha", "registrations": 10 },
   { "id": "deepak", "name": "Deepak", "registrations": 13 },
   { "id": "sanjay", "name": "Sanjay", "registrations": 1 },
-  { "id": "ipverse", "name": "ipverse", "registrations": 19},
+  { "id": "ipverse", "name": "ipverse", "registrations": 21},
   { "id": "Ujjwal", "name": "Ujjwal", "registrations": 4 },
   { "id": "ashna", "name": "Ashna", "registrations": 6},
   { "id": "Lakshay", "name": "Lakshay", "registrations": 2},
-  { "id": "Divyansh", "name": "Divyansh", "registrations": 4},
-  { "id": "Arman", "name": "Arman", "registrations": 2}
+  { "id": "Divyansh", "name": "Divyansh", "registrations": 6},
+  { "id": "Arman", "name": "Arman", "registrations": 2},
+  { "id": "Saksham", "name": "Saksham", "registrations": 8}
+
 ]
